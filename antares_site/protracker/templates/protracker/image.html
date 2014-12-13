@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+
+{% if image %}
+<p>{{ image.TakenAt }}</p>
+<p>{{ image.TelescopeName }}</p>
+<p>{{ image.FilterPassband }}</p>
+{% else %}
+<p>No image found!</p>
+{% endif %}
+

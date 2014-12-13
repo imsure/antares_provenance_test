@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    <h3>Derived Attribute {{ derived_attr.AttrName_id }} </h3>
+
+    {% if derived_attr %}
+    <table stype="width:100%">
+      <tr>
+	<th>Source Code Version</th>
+	<th>Function Name</th>
+	<th>File Name</th>
+	<th>Package Name</th>
+	<th>Astronomer Name</th>
+      </tr>
+      <tr>
+	<td><a href="">{{ derived_attr.HashName | truncatechars:9 }}</a></td>
+	<td>{{ derived_attr.FunctionName }}</td>
+	<td>{{ derived_attr.FileName }}</td>
+	<td>{{ derived_attr.PackageName }}</td>
+	<td>{{ derived_attr.AstronomerName }}</td>
+      </tr>
+    </table>
+    <p>{{ derived_attr.HashName }}</p>
+    {% else %}
+    <h3>No derived attributes found!</h3>
+    {% endif %}
+
+  </body>
+</html>

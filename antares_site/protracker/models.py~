@@ -1,0 +1,129 @@
+from django.db import models
+from django.core.validators import MinValueValidator
+
+# Create your models here.
+
+class Alert( models.Model ):
+    """
+    The class corresponds to the 'Alert' table.
+    """
+    AlertID = models.IntegerField( primary_key=True )
+    TakenAt = models.DateTimeField( 'Time the alert was taken' )
+    LocusID = models.ForeignKey( Locus )
+    SourceID = models.ForeignKey( Source )
+    LAAID = models.ForeignKey( LocusAggregatedAlert )
+
+class AlertReplica( models.Model ):
+    """
+    The class corresponds to the 'AlertReplica' table.
+    """
+    ReplicaID = models.IntegerField( primary_key=True )
+    AlertID = models.ForeignKey( Alert )
+    # put a >0 constraint on ReplicaNumber field
+    ReplicaNumber = models.IntegerField( validators=[MinValueValidator(1)] )
+    LocusID = models.ForeignKey( Locus )
+    ChannelID = models.IntegerField()
+    ChannelProbability = models.FloatField()
+
+class AstroObject( models.Model ):
+    """
+    The class corresponds to the 'AlertReplica' table.
+    """
+    AstroObjectID = models.IntegerField( primary_key=True )
+    LocusID = models.ForeignKey( Locus )
+    Catalog = models.CharField()
+    IDinCatalog = models.IntegerField()
+    IsPointSource = models.BooleanField()
+
+class Attribute( models.Model ):
+    """
+    The class corresponds to the 'Attribute' table.
+    """
+    AttrName = models.CharField( primary_key=True )
+    IsScaled = models.BooleanField()
+    DataType = models.CharField()
+
+class AttributeValue( models.Model ):
+    """
+    The class corresponds to the 'AttributeValue' table.
+    """
+    # List of choices of type a container can be
+    container_types = (
+        ( 'A', 'AstroObject Table' ),
+        ( 'C', 'Combo Table' ),
+        ( 'I', 'Image Table' ),
+        ( 'E', 'Alert Table' ),
+        ( 'L', 'LocusAggregatedAlert Table' ),
+        ( 'M', 'ImageSection Table' ),
+        ( 'R', 'AlertReplica Table' ),
+        ( 'S', 'Source Table' ),
+    )
+
+    AttributeValueID = models.IntegerField( primary_key=True )
+    AttrName = models.ForeignKey( Attribute )
+    ContainerID = models.IntegerField()
+    ContainerType = models.CharField( max_length=1, choices=container_types )
+    ComputedAt = models.DateTimeField( 'Time the value was computed' )
+    # For now, just use a string to store value.
+    Value = models.CharField()
+    Annotation = models.CharField()
+    Confidence = models.FloatField()
+
+    class Meta:
+        unique_together = ( AttrName, ContainerID,
+                            ContainerType, ComputedAt )
+
+class DerivedAttribute( models.Model ):
+    """
+    The class corresponds to the 'DerivedAttribute' table.
+    """
+    AttrName = models.ForeignKey( Attribute )
+    HashName = models.CharField( max_length=40 )
+    FunctionName = models.CharField( max_length=50 )
+    FileName = models.CharField( max_length=50 )
+    PackageName = models.CharField( max_length=50 )
+    AstronomerName = models.CharField( max_length=50 )
+
+class Image( models.Model ):
+    """
+    The class corresponds to the 'Image' table.
+    """
+    ImageID = models.IntegerField( primary_key=True )    
+    TakenAt = models.DateTimeField( 'Time the image was taken' )
+    TeloscopeName = models.CharField( max_length=100 )
+    FilterPassband = models.CharField()
+
+class Locus( models.Model ):
+    """
+    The class corresponds to the 'Locus' table.
+    """
+    LocusID = models.IntegerField( primary_key=True )
+    Coordinate = models.CharField()
+    Uncertainty = models.IntegerField()
+    
+class Source( models.Model ):
+    """
+    The class corresponds to the 'Source' table.
+    """
+    SourceID = models.IntegerField( primary_key=True )
+    ImageID = models.ForeignField( Image )
+    Coordinate = models.CharField()
+    Brightness = modles.FloatField()
+    DeltaBrightness = modles.FloatField()
+    ThumbnailURL = models.URLField()
+
+class ReplicaAssociatedWith( models.Model ):
+    """
+    The class corresponds to the 'ReplicaAssociatedWith' table.
+    """
+    ReplicaID = models.ForeignField( Replica )
+    AstroObjectID = models.ForeignField( AstroObject )
+    AssociationProbability = models.FloatField()
+
+class LocusAggregatedAlert( models.Model ):
+    """
+    The class corresponds to the 'LocusAggregatedAlert' table.
+    """
+    LAAID = models.IntegerField( primary_key=True )
+    LocusID = models.ForeignKey( Locus )
+

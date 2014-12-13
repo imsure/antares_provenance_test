@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<h1>Welcome to AzNOAOTare Provenance Tracking System</h1>
+
+<form action="{% url 'protracker:alert_search' %}" method="get">
+  <h2>Choose a date</h2>
+  {% for image in image_list %}
+  <input type="radio" name="taken_at" id="taken_at{{ forloop.counter }}"
+	 value="{{ image.TakenAt }}" />
+  <label for="taken_at{{ forloop.counter }}">{{ image }}</label><br />
+  {% endfor %}
+
+  <h2>Choose an alert type</h2>
+  {% for type in alert_types %}
+    <input type="radio" name="alert_type" id="alert_type{{ forloop.counter}}"
+	   value="{{ type }}" />
+    <label for="type{{ forloop.counter}}">{{ type }}</label><br />
+  {% endfor %}
+
+  <input type="submit" value="Search" />
+</form>
+

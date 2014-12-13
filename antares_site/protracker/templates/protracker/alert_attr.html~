@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    <h3>{{ alert_type }} taken at {{ taken_at }}</h3>
+
+    {% if alert_list %}
+    <table stype="width:100%">
+      <tr>
+	<th>Alert ID</th>
+	<th>Locus ID</th>
+	<th>Source ID</th>
+	<th>Taken At</th>
+	<th>Alert Type</th>
+	<th>Attributes</th>
+      </tr>
+      {% for alert in alert_list %}
+      <tr>
+	<td>{{ alert.AlertID }}</td>
+	<td>{{ alert.LocusID.LocusID }}</td>
+	<td>{{ alert.SourceID.SourceID }}</td>
+	<td>{{ alert.TakenAt }}</td>
+	<td>{{ alert_type }}</td>
+	<td><a href="{% url 'protracker:alert_attr' alert.AlertID %}">Attributes</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% else %}
+    <h3>No {{ alert_type }} found at {{ taken_at }}</h3>
+    {% endif %}
+
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+{% if rarest_alert_list %}
+<ul>
+  {% for alert in rarest_alert_list %}
+  <li><a href="/protracker/{{ alert.AlertID }}">{{ alert.TakenAt }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No rarest of the rare found so far!</p>
+{% endif %}
+

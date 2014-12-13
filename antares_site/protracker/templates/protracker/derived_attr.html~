@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    <h3>Attributes for Alert {{ alert.AlertID }} </h3>
+
+    {% if attrs %}
+    <table stype="width:100%">
+      <tr>
+	<th>Computed At</th>
+	<th>Value</th>
+	<th>Confidence</th>
+	<th>Name</th>
+	<th>Annotation</th>
+      </tr>
+      {% for attr in attrs %}
+      <tr>
+	<td>{{ attr.ComputedAt }}</td>
+	<td>{{ attr.Value | floatformat:'3' }}</td>
+	<td>{{ attr.Confidence | floatformat:'3' }}</td>
+	<td>{{ attr.AttrName_id }}</td>
+	{% if 'Derived' in attr.Annotation %}
+	<td><a href="{% url 'protracker:derived_attr' attr.AttrName_id %}">{{ attr.Annotation }}</a></td>
+	{% else %}
+	<td>{{ attr.Annotation }}</td>
+	{% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% else %}
+    <h3>No attributes found for alert {{ alert.AlertID }}</h3>
+    {% endif %}
+
+  </body>
+</html>
