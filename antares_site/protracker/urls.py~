@@ -1,8 +1,0 @@
-from django.conf.urls import patterns, include, url
-from protracker import views
-
-urlpatterns = patterns(
-    '',
-    url( r'^$', views.index, name='index' ),
-    url( r'^(?P<alert_id>\d+)/$', views.alertLookup, name='alert' ),
-)
