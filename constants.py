@@ -31,8 +31,7 @@ channel_range = ( 1, 5 )
 
 AstroAssoProb = 0.4
 
-SHA1 = "547d5ecf357d887c123cd9b950ccc96a5594f851"
-#SHA1 = "9d178220f594db551f2bbe6eaa308ea33c4fc092"
+SHA1 = "b8cc28d52cac735df5245a7b0c9c670245f166a7"
 
 RarestProb = 0.15
 Stage1Prob = 0.5
