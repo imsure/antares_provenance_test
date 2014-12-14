@@ -14,19 +14,17 @@
 </head>
 
   <body>
-    <h3>Image {{ image.ImageID }}</h3>
+    <h3>Locus {{ locus.LocusID }}</h3>
     <table stype="width:100%">
       <tr>
-	<th>Image ID</th>
-	<th>Taken At</th>
-	<th>TelescopeName</th>
-	<th>FilterPassband</th>
+	<th>Locus ID</th>
+	<th>Coordinate</th>
+	<th>Uncertainty</th>
       </tr>
       <tr>
-	<td>{{ image.ImageID }}</td>
-	<td>{{ image.TakenAt }}</td>
-	<td>{{ image.TelescopeName }}</td>
-	<td>{{ image.FilterPassband }}</td>
+	<td>{{ locus.LocusID }}</td>
+	<td>{{ locus.Coordinate }}</td>
+	<td>{{ locus.Uncertainty }}</td>
       </tr>
     </table>
   </body>

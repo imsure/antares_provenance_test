@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, loader
 from protracker.models import Alert, Image, Attribute, \
-    AttributeValue, DerivedAttribute
+    AttributeValue, DerivedAttribute, AlertReplica, \
+    AstroObject, ReplicaAssociatedWith, Locus, Source
 from datetime import datetime
 from protracker.github import GitHub
 import re
@@ -67,5 +68,53 @@ def func_code( request, funcname, sha1 ):
     sha1_end = sha1_start + 40
     oldsha1 = url2code[ sha1_start : sha1_end ]
     url2code = url2code.replace( oldsha1, sha1 )
-    url2code += '#L3'
+#    url2code += '#L3'
     return redirect( url2code )
+
+def replicas( request, alert_id ):
+    reps = AlertReplica.objects.filter( AlertID_id=alert_id )
+    context = { 'replicas': reps,
+                'alert' : alert_id }
+    return render( request, 'protracker/replica.html', context )
+
+def replica_attr( request, replica_id ):
+    replica = get_object_or_404( AlertReplica, pk=replica_id )
+    attrs = AttributeValue.objects.filter( ContainerID=replica_id,
+                                           ContainerType='R' )
+    context = { 'attrs': attrs,
+                'replica': replica }
+    return render( request, 'protracker/replica_attr.html', context )
+
+def astro( request, replica_id ):
+    replica_astro = ReplicaAssociatedWith.objects.filter( ReplicaID_id=replica_id )
+    astroobj = None
+    if replica_astro:
+        astroobj = get_object_or_404( AstroObject, AstroObjectID=replica_astro[0].AstroObjectID_id )
+    
+    context = { 'replica_id' : replica_id,
+                'astro' : astroobj }
+    return render( request, 'protracker/astro.html', context )
+
+def alert_attr( request, alert_id ):
+    alert = get_object_or_404( Alert, pk=alert_id )
+    attrs = AttributeValue.objects.filter( ContainerID=alert_id,
+                                           ContainerType='E' )
+    context = { 'attrs': attrs,
+                'alert': alert }
+    return render( request, 'protracker/alert_attr.html', context )
+
+def locus( request, locus_id ):
+    loc = get_object_or_404( Locus, pk=locus_id )
+    context = { 'locus': loc }
+    return render( request, 'protracker/locus.html', context )
+
+def source( request, source_id ):
+    src = get_object_or_404( Source, pk=source_id )
+    context = { 'source': src }
+    return render( request, 'protracker/source.html', context )
+
+def image( request, image_id ):
+    img = get_object_or_404( Image, pk=image_id )
+    context = { 'image': img }
+    return render( request, 'protracker/image.html', context )
+

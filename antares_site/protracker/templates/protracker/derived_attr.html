@@ -27,7 +27,7 @@
       </tr>
       <tr>
 	<td><a href="{% url 'protracker:attr_code' derived_attr.HashName %}">
-	    {{ derived_attr.HashName | truncatechars:9 }}</a></td>
+	    {{ derived_attr.HashName | truncatechars:20 }}</a></td>
 	<td><a href="{% url 'protracker:func_code' derived_attr.FunctionName derived_attr.HashName %}">
 	    {{ derived_attr.FunctionName }}</a></td>
 	<td>{{ derived_attr.FileName }}</td>

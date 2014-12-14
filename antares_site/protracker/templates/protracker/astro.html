@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    {% if astro %}
+    <h3>AstroObject associated with Replica {{ replica_id }}</h3>
+    <table stype="width:100%">
+      <tr>
+	<th>AstroObject ID</th>
+	<th>Catalog</th>
+	<th>ID in Catalog</th>
+	<th>Is Point Source?</th>
+	<th>Locus</th>
+      </tr>
+      <tr>
+	<td>{{ astro.AstroObjectID }}</td>
+	<td>{{ astro.Catalog }}</td>
+	<td>{{ astro.IDinCatalog }}</td>
+	<td>{{ astro.IsPointSource }}</td>
+	<td><a href="{% url 'protracker:locus' astro.LocusID_id %}">Locus</a></td>
+      </tr>
+    </table>
+    {% else %}
+    <h3>No AstroObject associated with Replica {{ replica_id }}</h3>
+    {% endif %}
+
+  </body>
+</html>

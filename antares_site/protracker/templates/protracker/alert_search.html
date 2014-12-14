@@ -20,8 +20,9 @@
     <table stype="width:100%">
       <tr>
 	<th>Alert ID</th>
-	<th>Locus ID</th>
-	<th>Source ID</th>
+	<th>Replicas</th>
+	<th>Locus</th>
+	<th>Source</th>
 	<th>Taken At</th>
 	<th>Alert Type</th>
 	<th>Attributes</th>
@@ -29,8 +30,9 @@
       {% for alert in alert_list %}
       <tr>
 	<td>{{ alert.AlertID }}</td>
-	<td>{{ alert.LocusID.LocusID }}</td>
-	<td>{{ alert.SourceID.SourceID }}</td>
+	<td><a href="{% url 'protracker:replicas' alert.AlertID %}">Replicas</a></td>
+	<td><a href="{% url 'protracker:locus' alert.LocusID.LocusID %}">Locus</a></td>
+	<td><a href="{% url 'protracker:source' alert.SourceID.SourceID %}">Source</a></td>
 	<td>{{ alert.TakenAt }}</td>
 	<td>{{ alert_type }}</td>
 	<td><a href="{% url 'protracker:alert_attr' alert.AlertID %}">Attributes</a></td>

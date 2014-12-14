@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    {% if replicas %}
+    <h3>Replicas of alert {{ alert }}</h3>
+    <table stype="width:100%">
+      <tr>
+	<th>Replica ID</th>
+	<th>Replica Number</th>
+	<th>Locus</th>
+	<th>Channel ID</th>
+	<th>Channel Probability</th>
+	<th>Attributes</th>
+	<th>Associated AstroObject</th>
+      </tr>
+      {% for replica in replicas %}
+      <tr>
+	<td>{{ replica.ReplicaID }}</td>
+	<td>{{ replica.ReplicaNumber }}</td>
+	<td><a href="{% url 'protracker:locus' replica.LocusID_id %}">Locus</a></td>
+	<td>{{ replica.ChannelID }}</td>
+	<td>{{ replica.ChannelProbability | floatformat:'3' }}</td>
+	<td><a href="{% url 'protracker:replica_attr' replica.ReplicaID %}">Attributes</a></td>
+	<td><a href="{% url 'protracker:astro' replica.ReplicaID  %}">Associated AstroObject</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% else %}
+    <h3>No replica found for alert {{ alert }}</h3>
+    {% endif %}
+
+  </body>
+</html>

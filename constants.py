@@ -14,7 +14,7 @@ catalogs = ( '2MASS', 'Kepler', 'SDSS' )
 
 BaseNight = { 'year': 2014, 'month': 12, 'day': 6,
            'hour': 23, 'min': 35, 'sec': 30 }
-NumNights = 3
+NumNights = 5
 
 night1 = { 'year': 2014, 'month': 12, 'day': 6,
            'hour': 23, 'min': 35, 'sec': 30 }
@@ -29,7 +29,7 @@ dec_range = ( 41.26917, 97.24892 )
 uncert_range = ( 1, 10 )
 channel_range = ( 1, 5 )
 
-AstroAssoProb = 0.7
+AstroAssoProb = 0.4
 
 SHA1 = "547d5ecf357d887c123cd9b950ccc96a5594f851"
 #SHA1 = "9d178220f594db551f2bbe6eaa308ea33c4fc092"

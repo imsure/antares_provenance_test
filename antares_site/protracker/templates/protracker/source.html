@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    th, td {
+    padding: 5px;
+    text-align: left;
+    }
+  </style>
+</head>
+
+  <body>
+    <h3>Source {{ source.SourceID }}</h3>
+    <table stype="width:100%">
+      <tr>
+	<th>Source ID</th>
+	<th>Coordinate</th>
+	<th>Brightness</th>
+	<th>DeltaBrightness</th>
+	<th>ThumbnailURL</th>
+	<th>Image</th>
+      </tr>
+      <tr>
+	<td>{{ source.SourceID }}</td>
+	<td>{{ source.Coordinate }}</td>
+	<td>{{ source.Brightness | floatformat:'3' }}</td>
+	<td>{{ source.DeltaBrightness | floatformat:'3' }}</td>
+	<td>{{ source.ThumbnailURL }}</td>
+	<td><a href="{% url 'protracker:image' source.ImageID_id %}">Image</a></td>
+      </tr>
+    </table>
+  </body>
+</html>
