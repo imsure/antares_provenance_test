@@ -26,14 +26,15 @@
 	<th>Astronomer Name</th>
       </tr>
       <tr>
-	<td><a href="">{{ derived_attr.HashName | truncatechars:9 }}</a></td>
-	<td>{{ derived_attr.FunctionName }}</td>
+	<td><a href="{% url 'protracker:attr_code' derived_attr.HashName %}">
+	    {{ derived_attr.HashName | truncatechars:9 }}</a></td>
+	<td><a href="{% url 'protracker:func_code' derived_attr.FunctionName derived_attr.HashName %}">
+	    {{ derived_attr.FunctionName }}</a></td>
 	<td>{{ derived_attr.FileName }}</td>
 	<td>{{ derived_attr.PackageName }}</td>
 	<td>{{ derived_attr.AstronomerName }}</td>
       </tr>
     </table>
-    <p>{{ derived_attr.HashName }}</p>
     {% else %}
     <h3>No derived attributes found!</h3>
     {% endif %}

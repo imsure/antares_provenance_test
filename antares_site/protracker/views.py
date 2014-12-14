@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, loader
 from protracker.models import Alert, Image, Attribute, \
     AttributeValue, DerivedAttribute
 from datetime import datetime
+from protracker.github import GitHub
+import re
 
 decisions = {
     'Throttled Alert': 'T',
@@ -12,6 +14,9 @@ decisions = {
     'Level-II Alert': 'L2',
     'Rarest of the rare Alert': 'R',
 }
+
+gituser = 'imsure'
+repo = 'antares_provenance_test'
 
 # Create your views here.
 
@@ -46,3 +51,21 @@ def derived_attr( request, attrname ):
     derives = DerivedAttribute.objects.filter( AttrName_id=attrname )
     context = { 'derived_attr': derives[0] }
     return render( request, 'protracker/derived_attr.html', context )
+
+def attr_code( request, sha1 ):
+    gh = GitHub()
+    commit = gh.repos( gituser, repo ).commits( sha1 ).get()
+    url2code = commit['html_url'].replace( 'commit', 'tree' )
+    return redirect( url2code )
+
+def func_code( request, funcname, sha1 ):
+    gh = GitHub()
+    query = """{0} in:file language:py repo:{1}/{2}""".format( funcname, gituser, repo )
+    search = gh.search.code.get( q=query )
+    url2code = search['items'][0]['html_url']
+    sha1_start = url2code.find('/blob/') + 6
+    sha1_end = sha1_start + 40
+    oldsha1 = url2code[ sha1_start : sha1_end ]
+    url2code = url2code.replace( oldsha1, sha1 )
+    url2code += '#L3'
+    return redirect( url2code )
