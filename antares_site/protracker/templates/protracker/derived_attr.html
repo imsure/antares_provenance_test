@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding: 5px;
-    text-align: left;
-    }
-  </style>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" media="screen" />  
 </head>
 
   <body>
-    <h3>Derived Attribute {{ derived_attr.AttrName_id }} </h3>
+    <h2>Derived Attribute {{ derived_attr.AttrName_id }}</h2>
 
     {% if derived_attr %}
     <table stype="width:100%">
@@ -36,7 +28,7 @@
       </tr>
     </table>
     {% else %}
-    <h3>No derived attributes found!</h3>
+    <h2>No derived attributes found!</h2>
     {% endif %}
 
   </body>

@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding: 5px;
-    text-align: left;
-    }
-  </style>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" media="screen" />  
 </head>
 
   <body>
-    <h3>Source {{ source.SourceID }}</h3>
+    <h2>Source {{ source.SourceID }}</h2>
     <table stype="width:100%">
       <tr>
 	<th>Source ID</th>

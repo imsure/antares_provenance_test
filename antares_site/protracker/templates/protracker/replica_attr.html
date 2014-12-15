@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding: 5px;
-    text-align: left;
-    }
-  </style>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" media="screen" />  
 </head>
 
   <body>
-    <h3>Attributes for Replica {{ replica.ReplicaID }} of alert {{ replica.AlertID_id }} </h3>
+    <h2>Attributes for Replica {{ replica.ReplicaID }} of alert {{ replica.AlertID_id }}</h2>
 
     {% if attrs %}
     <table stype="width:100%">
@@ -41,7 +33,7 @@
     </table>
 
     {% else %}
-    <h3>No attributes found for alert {{ alert.AlertID }}</h3>
+    <h2>No attributes found for alert {{ alert.AlertID }}</h2>
     {% endif %}
 
   </body>

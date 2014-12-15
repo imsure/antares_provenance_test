@@ -1,22 +1,31 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" media="screen" />
+  </head>
 
-<h1>Welcome to AzNOAOTare Provenance Tracking System</h1>
+  <body>
 
-<form action="{% url 'protracker:alert_search' %}" method="get">
-  <h2>Choose a date</h2>
-  {% for image in image_list %}
-  <input type="radio" name="taken_at" id="taken_at{{ forloop.counter }}"
-	 value="{{ image.TakenAt }}" />
-  <label for="taken_at{{ forloop.counter }}">{{ image }}</label><br />
-  {% endfor %}
+    <h1>Welcome to AzNOAOTares Provenance Tracking System</h1>
 
-  <h2>Choose an alert type</h2>
-  {% for type in alert_types %}
-    <input type="radio" name="alert_type" id="alert_type{{ forloop.counter}}"
-	   value="{{ type }}" />
-    <label for="type{{ forloop.counter}}">{{ type }}</label><br />
-  {% endfor %}
+    <form action="{% url 'protracker:alert_search' %}" method="get">
+      <h2>Choose a date</h2>
+      {% for image in image_list %}
+      <input type="radio" name="taken_at" id="taken_at{{ forloop.counter }}"
+	     value="{{ image.TakenAt }}" />
+      <label for="taken_at{{ forloop.counter }}">{{ image }}</label><br />
+      {% endfor %}
 
-  <input type="submit" value="Search" />
-</form>
+      <h2>Choose an alert type</h2>
+      {% for type in alert_types %}
+      <input type="radio" name="alert_type" id="alert_type{{ forloop.counter}}"
+	     value="{{ type }}" />
+      <label for="type{{ forloop.counter}}">{{ type }}</label><br />
+      {% endfor %}
 
+      <input type="submit" value="Search" />
+    </form>
+
+  </body>
+</html>

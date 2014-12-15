@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding: 5px;
-    text-align: left;
-    }
-  </style>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" media="screen" />  
 </head>
 
   <body>
     {% if astro %}
-    <h3>AstroObject associated with Replica {{ replica_id }}</h3>
+    <h2>AstroObject associated with Replica {{ replica_id }}</h2>
     <table stype="width:100%">
       <tr>
 	<th>AstroObject ID</th>
@@ -33,7 +25,7 @@
       </tr>
     </table>
     {% else %}
-    <h3>No AstroObject associated with Replica {{ replica_id }}</h3>
+    <h2>No AstroObject associated with Replica {{ replica_id }}</h2>
     {% endif %}
 
   </body>
